@@ -1,0 +1,7 @@
+.idea/
+.gradle/
+app/build
+
+opencv-mobile-*-android/
+ncnn-*-android-vulkan
+.cxx
