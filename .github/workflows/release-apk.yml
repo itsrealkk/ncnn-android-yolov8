@@ -20,6 +20,10 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '21'
+    - uses: actions/setup-python@v1
+    - uses: BSFishy/pip-action@v1
+      with:
+        packages: ultralytics
 
     - name: ncnn
       run: |
@@ -30,6 +34,17 @@ jobs:
       run: |
         wget -q https://github.com/nihui/opencv-mobile/releases/download/${OPENCV_MOBILE_TAG}/opencv-mobile-${OPENCV_VERSION}-android.zip
         unzip -q opencv-mobile-${OPENCV_VERSION}-android.zip -d app/src/main/jni
+        
+    - name: convert model to ncnn
+      run: |
+        wget -q https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8n.pt
+        wget -q https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8s.pt
+        yolo export model=yolov8n.pt format=ncnn
+        yolo export model=yolov8s.pt format=ncnn
+        cp yolov8n_ncnn_model/model.ncnn.bin app/src/main/assets/
+        cp yolov8n_ncnn_model/model.ncnn.param app/src/main/assets/
+        cp yolov8s_ncnn_model/model.ncnn.bin app/src/main/assets/
+        cp yolov8s_ncnn_model/model.ncnn.param app/src/main/assets/
 
     - name: modify-jni-cmakelists
       run: |
