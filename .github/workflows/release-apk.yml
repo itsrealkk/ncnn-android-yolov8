@@ -41,6 +41,7 @@ jobs:
         wget -q https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8s.pt
         yolo export model=yolov8n.pt format=ncnn
         yolo export model=yolov8s.pt format=ncnn
+        mkdir -p app/src/main/assets/
         cp yolov8n_ncnn_model/model.ncnn.bin app/src/main/assets/
         cp yolov8n_ncnn_model/model.ncnn.param app/src/main/assets/
         cp yolov8s_ncnn_model/model.ncnn.bin app/src/main/assets/
